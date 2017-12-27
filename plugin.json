@@ -1,0 +1,13 @@
+{
+    "name": "Payreto",
+    "description": "Payreto Backend Menu",
+    "namespace": "Payreto",
+    "version": "1.0.0",
+    "author": "Payreto Dev",
+    "type": "payment",
+    "serviceProvider": "Payreto\\Providers\\PayretoServiceProvider",
+    "runOnBuild"        : [
+        "Payreto\\Migrations\\CreatePayretoTables",
+        "Payreto\\Migrations\\CreatePaymentMethod"
+    ]
+}

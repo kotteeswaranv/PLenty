@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+<title>Payreto Settings</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body, input, label, option, select {
+	font-family: Verdana,Arial,sans-serif,Unicode MS !important;
+    font-size: 12px !important;
+    color: #333 !important;
+}
+span {
+	font-family: Verdana,Arial,sans-serif,Unicode MS !important;
+    font-size: 11px !important;
+    color: #555 !important;
+}
+label {
+	float:left;
+	padding: 5px;
+	width: 200px;
+}
+.input-text, span, select {
+	float:left;
+	padding: 5px;
+	width: 400px;
+}
+select {
+	width: 415px;
+}
+img {
+	height: 35px;
+	margin-right: 5px;
+}
+.div-separator {
+	margin-bottom: 10px;
+}
+.div-tooltips {
+	margin-left: 205px;
+}
+.div-img {
+	height: 35px;
+}
+.clear {
+	clear: both;
+}
+.input-button {
+	margin: 5px;
+    padding: 10px;
+	border: 1px solid transparent;
+	border-radius: 0.25rem;
+	background-color: #0db3e6;
+    color: #fff !important;
+    text-decoration: none;
+    cursor: pointer;
+    cursor: hand;
+}
+.message {
+	padding: 12px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+.success {
+	background-color: #dff0d8;
+    border-color: #d0e9c6;
+    color: #3c763d;
+}
+.failed {
+	background-color: #f2dede;
+    border-color: #ebcccc;
+    color: #a94442;
+}
+@media screen and (max-width: 768px) {
+	.div-tooltips {
+		margin-left: 0px;
+	}
+	.input-text, label, span {
+		width: 98%;
+	}
+	select {
+		width: 100%;
+	}
+}
+</style>
+<script type="text/javascript">
+
+	function onChange(value) {
+		console.log(this.value);
+		console.log(value);
+	}
+</script>
+</head>
+<body>
+	<h3>{{ settingType }}</h3>
+	<div id="payretoSettings">
+		<form action="save" method="post" name="savesettings" class="settings">
+			<input type="hidden" name="settingType" value="{{ settingType }}" />
+			<input type="hidden" name="plentyId" value="{{ plentyId }}" />
+			{% if settingType == 'general-setting' %}
+				<div>
+					<label for="User ID">User ID *</label>
+					<input type="text" class="input-text" name="userId" value="{{ setting.userId }}" required />
+				</div>
+				<div class="clear"></div>
+				<div class="div-separator clear"></div>
+				<div>
+					<label for="Password">Password *</label>
+					<input type="text" class="input-text" name="password" value="{{ setting.password }}" required />
+				</div>
+				<div class="clear"></div>
+				<div class="div-separator clear"></div>
+				<div>
+					<label for="Merchant Email">Merchant Email *</label>
+					<input type="text" class="input-text" name="merchantEmail" value="{{ setting.merchantEmail }}" required />
+				</div>
+				<div class="clear"></div>
+				<div class="div-separator clear"></div>
+				<div>
+					<label for="Shop Url">Shop Url</label>
+					<input type="text" class="input-text" name="shopUrl" value="{{ setting.shopUrl }}"/>
+				</div>
+			{% elseif settingType == 'credit-card' %}
+				<div>
+					<label for="Enabled">Language *</label>
+					<select name="language" value="{{ setting.language }}">
+						<option value="de" {{ (setting.language == 'de') ? 'selected' : '' }}>English</option>
+						<option value="en" {{ (setting.language == 'en') ? 'selected' : '' }}>Germany</option>
+					</select>
+				</div>
+				<div class="clear"></div>
+				<div class="div-separator clear"></div>
+				<div>
+					<label for="Enabled">Enabled *</label>
+					<select name="display" value="{{ setting.display }}">
+						<option value="0" {{ (setting.display == '0') ? 'selected' : '' }}>No</option>
+						<option value="1" {{ (setting.display == '1') ? 'selected' : '' }}>Yes</option>
+					</select>
+				</div>
+				<div class="clear"></div>
+				<div class="div-separator clear"></div>
+				<div>
+					<label for="Card Type">Card Types *</label>
+					{% set cardTypes = setting.cardType|split(',') %}
+					<select name="cardTypes[]" multiple="multiple" value="{{ ('MASTER' in cardTypes) }}">
+						<option value="VISA" {{ ('VISA' in cardTypes) ? 'selected' : '' }}>Visa</option>
+						<option value="MASTER" {{ ('MASTER' in cardTypes) ? 'selected' : '' }}>Master Card</option>
+						<option value="AMEX" {{ ('AMEX' in cardTypes) ? 'selected' : '' }}>American Express</option>
+					</select>
+				</div>
+				<div class="clear"></div>
+				<div class="div-separator clear"></div>
+				<div>
+					<label for="Merchant Email">Transaction-Mode </label>
+					<select name="transactionMode" onchange="onChange()" value="{{ setting.transactionMode }}">
+						<option value="DB" {{ (setting.transactionMode == 'DB') ? 'selected' : '' }}>Debit</option>
+						<option value="PA" {{ (setting.transactionMode == 'PA') ? 'selected' : '' }}>Pre - Authorization</option>
+					</select>
+				</div>
+				<div class="clear"></div>
+				<div class="div-separator clear"></div>
+				<div>
+					<label for="Shop Url">Entity-ID</label>
+					<input type="text" class="input-text" name="entityId" value="{{ setting.entityId }}"/>
+				</div>
+			{% elseif settingType == 'easy-credit'  %}
+				<div>
+					<label for="Enabled">Server</label>
+					<select name="server" value="{{ setting.server }}">
+						<option value="LIVE" {{ (setting.server == 'LIVE') ? 'selected' : '' }}>Live</option>
+						<option value="TEST" {{ (setting.server == 'TEST') ? 'selected' : '' }}>Test</option>
+					</select>
+				</div>
+				<div class="clear"></div>
+				<div class="div-separator clear"></div>
+				<div>
+					<label for="Enabled">Enabled *</label>
+					<select name="display" value="{{ setting.display }}">
+						<option value="0" {{ (setting.display == '0') ? 'selected' : '' }}>No</option>
+						<option value="1" {{ (setting.display == '1') ? 'selected' : '' }}>Yes</option>
+					</select>
+				</div>
+				<div class="clear"></div>
+				<div class="div-separator clear"></div>
+				<div>
+					<label for="Shop Url">Entity-ID</label>
+					<input type="text" class="input-text" name="entityId" value="{{ setting.entityId }}"/>
+				</div>
+			{% endif %}
+			<div class="div-separator clear"></div>
+			<div>
+				<input name="savebutton" type="submit" class="input-button" value="Save Configuration" />
+			</div>
+		</form>
+	</div>
+</body>
+</html>

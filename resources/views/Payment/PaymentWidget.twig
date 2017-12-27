@@ -1,0 +1,18 @@
+
+{% extends getPartial('page-design') %}
+{% import "Ceres::PageDesign.Macros.LayoutContainer" as LayoutContainer %}
+
+{% block PartialHead %}
+    <title>{{ trans("Ceres::Template.orderCheckout") }} | {{ config("Ceres.header.company_name") }}</title>
+{% endblock %}
+
+{% block PageBody %}
+
+    <div class="page-content checkout container-max">
+    	<div>
+    		<script src="https://test.oppwa.com/v1/paymentWidgets.js?checkoutId={{ checkoutId }}" type="text/javascript"></script>
+	    	<form action="{{ paymentPageUrl }}" class="paymentWidgets" data-brands="{{ cardType }}"></form>
+		</div>
+    </div>
+
+{% endblock %}
