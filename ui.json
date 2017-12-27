@@ -6,25 +6,25 @@
                         "label": "General Settings",
                         "menu": "settings/orders/payreto",
                         "urlKey": "general-setting",
-                        "entryPoint": "../../../../../payreto/settings/general-setting"
+                        "entryPoint": "../payreto/settings/general-setting"
                     },
                     {
                         "label": "Credit Card",
                         "menu": "settings/orders/payreto",
                         "urlKey": "credit-card",
-                        "entryPoint": "../../../../../payreto/settings/credit-card"
+                        "entryPoint": "../../payreto/settings/credit-card"
                     },
                     {
                         "label": "Credit Card (Recurring)",
                         "menu": "settings/orders/payreto",
                         "urlKey": "credit-card-recurring",
-                        "entryPoint": "../../../../../payreto/settings/credit-card"
+                        "entryPoint": "../../../payreto/settings/credit-card"
                     },
                     {
                         "label": "Direct Debit",
                         "menu": "settings/orders/payreto",
                         "urlKey": "direct-debit",
-                        "entryPoint": "../../../../../payreto/settings/credit-card"
+                        "entryPoint": "../../../../payreto/settings/credit-card"
                     },
                     {
                         "label": "Direct Debit (Recurring)",
