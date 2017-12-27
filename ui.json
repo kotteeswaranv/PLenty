@@ -5,7 +5,9 @@
                     {
                         "label": "General Settings",
                         "menu": "settings/orders/payreto",
-                        "urlKey": "general-setting"
+                        "urlKey": "general-setting",
+                        "entryPoint": "index.html",
+                        "icon": "icon-add"
                     },
                     {
                         "label": "Credit Card",
